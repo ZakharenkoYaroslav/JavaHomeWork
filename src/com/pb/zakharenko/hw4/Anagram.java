@@ -7,21 +7,21 @@ import java.util.Scanner;
 import static java.util.Arrays.*;
 
 public class Anagram {
-    public static String[] deleteComma (String str) {
-        String[] result1;
+    public static String deleteComma (String str) {
+        String result1;
         str=str.toLowerCase();
-        String[] line=str.split(" ");
-        for (int i=0;i<line.length;i++){
-            int pos = line[i].indexOf(",");
-            if (pos != -1)
-            {  //вычленяем запятую из подстроки
-                String attributeName= line[i].substring(0,pos);
-                //вычленяем значение атрибута
-                String value = line[i].substring(pos+1,line[i].length());
-                result1[i] = attributeName+value;
-            }
-        }
-        return result1;
+        int pos;
+        do {
+        //находим индекс первого вхождения символа "," в подстроке
+        pos = str.indexOf(",");
+        if (pos !=-1) {//вычленяем имя атрибута из подстроки
+        String attributeName= str.substring(0,pos);
+        //вычленяем значение атрибута
+        String value = str.substring(pos+1,str.length());
+       str=attributeName+value;} }
+        while (pos !=-1);
+
+        return str;
     }
 
     public static void main(String[] args) {
@@ -33,12 +33,14 @@ public class Anagram {
         string2 = scan.nextLine();
 
 
-        String[] lines1=deleteComma(string1);
-        String[] lines2=deleteComma(string2);
+        String lines1=deleteComma(string1);
+        String lines2=deleteComma(string2);
 
-        sort(lines1);
-        sort(lines2);
-        if(Arrays.equals(lines1, lines2))
+        String[] lines11=lines1.split(" ");
+        String[] lines21=lines2.split(" ");
+        sort(lines11);
+        sort(lines21);
+        if(Arrays.equals(lines11, lines21))
             System.out.println(string1 + " є анаграмою речення "+string2);
         else
             System.out.println("Речення не є анаграмою");
