@@ -36,11 +36,14 @@ public class Anagram {
         String lines1=deleteComma(string1);
         String lines2=deleteComma(string2);
 
-        String[] lines11=lines1.split(" ");
-        String[] lines21=lines2.split(" ");
-        sort(lines11);
-        sort(lines21);
-        if(Arrays.equals(lines11, lines21))
+        String lines11=lines1.replaceAll(" ","");
+        String lines21=lines2.replaceAll(" ","");
+        char[] lines12=lines11.toCharArray();
+        char[] lines22=lines21.toCharArray();
+
+        sort(lines12);
+        sort(lines22);
+        if(Arrays.equals(lines12, lines22))
             System.out.println(string1 + " є анаграмою речення "+string2);
         else
             System.out.println("Речення не є анаграмою");
