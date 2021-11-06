@@ -4,10 +4,11 @@ import java.util.Objects;
 public class Dog extends Animal{
         private String fur;
 
-    public Dog(String fur) {
-        this.fur = fur;
-        super("собачий корм, м'ясо","мешкає разом з людиною або в населених пунктах","собака");
 
+
+    public Dog(String food, String location, String name, String fur) {
+        super(food, location, name);
+        this.fur = fur;
     }
 
     @Override

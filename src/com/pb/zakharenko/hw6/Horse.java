@@ -4,11 +4,10 @@ import java.util.Objects;
 public class Horse extends Animal{
     private String mane;
 
-    public Horse(String mane) {
+    public Horse(String food, String location, String name, String mane) {
+        super(food, location, name);
         this.mane = mane;
-        super ("Трави, зерно, сіно","переважно мешкає з людиною, в природі випасається в лугах","кінь");
     }
-
 
     @Override
     public void makeNoise(String name) {
