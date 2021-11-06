@@ -47,6 +47,15 @@ public class Library {
         reader3.setNumberReaderCertificate("3");
         reader3.setPhoneNumber("+380503330103");
 
+     //   public void printBook (Book... books){
+//            for (Book theBook : books) {
+//                System.out.println(theBook.getName() + " " + theBook.getAuthor() + " " + theBook.getYearOfPublish());
+//            }
+//        }
+//        for (Reader theReader : readers) {
+//            System.out.println(theReader.getPIB()+" "+theReader.getFaculty()+" "+theReader.getDayOfBirth()+" "+theReader.getNumberReaderCertificate()+" "+theReader.getPhoneNumber());
+//        }
+
         reader1.takeBook(3);
         reader1.takeBook(book1.getName(),book2.getName(),book3.getName());
         reader1.takeBook(book1,book2,book3);
