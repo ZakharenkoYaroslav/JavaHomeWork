@@ -11,7 +11,9 @@ public class Cat extends Animal{
         super("кошачий корм, м'ясо, молоко, полює на гризунів","мешкає разом з людиною або дикій природі","кішка");
     }
 
-
+    public String getBrit() {
+        return brit;
+    }
 
     @Override
     public void makeNoise(String name) {
@@ -20,22 +22,25 @@ public class Cat extends Animal{
 
     @Override
     public void eat(String name,String brit,String nickname) {
-        System.out.println(name + " "+"породи "+brit+" за іменем "+nickname+" спить.");
+        System.out.println(name + " "+"породи "+brit+" за іменем "+nickname+" їсть.");
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, maxSpeed);
+        return Objects.hash(brit, nickname);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal cat1 = (Animal) o;
+        return getName() == cat1.getName() && Objects.equals(brit, cat1.getBrit);
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return getName()+" за sменем "+nickname+" породи "+brit;
     }
 }

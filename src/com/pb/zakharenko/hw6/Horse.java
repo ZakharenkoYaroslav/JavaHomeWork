@@ -6,7 +6,7 @@ public class Horse extends Animal{
 
     public Horse(String mane) {
         this.mane = mane;
-        super ("Трави, зерно, сіно","переважно мешкає з людиною, в природі випасається в лугах","кінь")
+        super ("Трави, зерно, сіно","переважно мешкає з людиною, в природі випасається в лугах","кінь");
     }
 
 
@@ -17,7 +17,7 @@ public class Horse extends Animal{
 
     @Override
     public void eat(String name) {
-        System.out.println(name + " випасається на лузі."));
+        System.out.println(name + " випасається на лузі.");
     }
 
 
