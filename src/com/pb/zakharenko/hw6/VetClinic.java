@@ -17,9 +17,10 @@ public class VetClinic {
                 " випасається в лугах","кінь","короткогривий");
 
         Class Veterinarian = Class.forName("com.pb.zakharenko.hw6.Veterinarian");
+
         // создание объекта через рефлексию
-        Constructor constr = Veterinarian.getConstructor(new Class[]{String.class});
-        Object obj = constr.newInstance("Ветеринар");
+        Constructor constr = Veterinarian.getConstructor(new Class[]{});
+        Object obj = constr.newInstance();
 
         if (obj instanceof Veterinarian) {
       //      for (Animal animal : animals)
@@ -28,7 +29,7 @@ public class VetClinic {
 
 
         Animal[] animals = new Animal[] {dog, cat, horse};
-        System.out.println("----------------------");
+
         for (Animal a: animals)  {
             ((Veterinarian) obj).treatAnimal(a);
     }
