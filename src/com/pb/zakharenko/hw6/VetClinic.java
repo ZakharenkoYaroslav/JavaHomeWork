@@ -9,9 +9,12 @@ import java.lang.reflect.Constructor;
 public class VetClinic {
     public static void main(String[] args)  throws Exception {
 
-        Dog dog = new Dog("короткошерсна");
-        Cat cat = new Cat("перська","Пенелопа");
-        Horse horse = new Horse("короткогрива");
+        Dog dog = new Dog("собачий корм, м'ясо","мешкає разом з людиною або в населених" +
+                " пунктах","собака","короткошерсна");
+        Cat cat = new Cat ("кошачий корм, м'ясо, молоко, полює на гризунів","мешкає разом" +
+                " з людиною або дикій природі","кішка","перська","Пенелопа");
+        Horse horse = new Horse ("Трави, зерно, сіно","переважно мешкає з людиною, в природі" +
+                " випасається в лугах","кінь","короткогривий");
 
         Class Veterinarian = Class.forName("com.pb.zakharenko.hw6.Veterinarian");
         // создание объекта через рефлексию
@@ -19,15 +22,15 @@ public class VetClinic {
         Object obj = constr.newInstance("Ветеринар");
 
         if (obj instanceof Veterinarian) {
-            for (Animal animal : animals)
-                ((Veterinarian) obj).treatAnimal(animal);
+      //      for (Animal animal : animals)
+//                ((Veterinarian) obj).treatAnimal(animal);
         }
 
 
         Animal[] animals = new Animal[] {dog, cat, horse};
         System.out.println("----------------------");
         for (Animal a: animals)  {
-        Veterinarian.treatAnimal(a);
+            ((Veterinarian) obj).treatAnimal(a);
     }
 
 

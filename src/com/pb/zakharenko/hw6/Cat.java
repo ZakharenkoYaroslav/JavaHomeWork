@@ -36,8 +36,8 @@ public class Cat extends Animal{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal cat1 = (Animal) o;
-        return getName() == cat1.getName() && Objects.equals(brit, ((cat1)o).getBrit);
+        Cat cat = (Cat) o;
+        return getName() == cat.getName() && Objects.equals(brit, cat.getBrit());
     }
 
     @Override

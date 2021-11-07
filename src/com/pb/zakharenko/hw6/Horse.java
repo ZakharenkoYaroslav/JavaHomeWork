@@ -30,8 +30,8 @@ public class Horse extends Animal{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal horse1 = (Animal) o;
-        return getName() == horse1.getName() && Objects.equals(mane, horse1.mane);
+        Horse horse = (Horse) o;
+        return getName() == horse.getName() && Objects.equals(mane, horse.mane);
     }
 
     @Override
