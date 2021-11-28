@@ -14,15 +14,15 @@ public class NumBox <T extends Number>{
     }
 
     public int getSize() {
-        return size;
+        return numbers.length;
     }
 
 
 
     public void add (T num) throws ArrayOutOfBoundExeption {
-        if (length() >= numbers.length ) {throw new ArrayOutOfBoundExeption("Масив вже заповнений! Неможливо додати новий елемент!"); }
+        if (length() > numbers.length ) {throw new ArrayOutOfBoundExeption("Масив вже заповнений! Неможливо додати новий елемент!"); }
         else {
-            int currentIndex = numbers.length+1;
+            int currentIndex = length();
             this.numbers[currentIndex]=num;
         }
 

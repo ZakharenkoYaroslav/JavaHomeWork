@@ -8,7 +8,7 @@ public class Main {
         NumBox <Float> num1 = new NumBox<>(10);
         NumBox <Double> num2 = new NumBox<>(20);
 
-        for (int i=0;i < (num1.getNumbers().length);i++){
+        for (int i=0;i < (num1.getSize());i++){
 
             Float num = random.nextFloat();
             try{
@@ -19,20 +19,29 @@ public class Main {
                 a.printStackTrace();
                 System.exit(0);
             }
-            System.out.println(num+" записано в массив с индексом "+i);
+            System.out.println(num+" зберігається в масиві з індексом "+i);
         }
+        System.out.println();
 
-        Float testNum = num1.get(9);
-            System.out.println(testNum+" хранится в массив с индексом "+9);
+        Float testNum = num1.get(6);
+        System.out.println(testNum+" хранится в массив с индексом "+6);
+        System.out.println("Довжина масиву:");
         System.out.println(num1.length());
+        System.out.println();
+        System.out.println("Середенє значення в масиві:");
         System.out.println(num1.average());
+        System.out.println();
+        System.out.println("Сума значень масиву:");
         System.out.println(num1.sum());
+        System.out.println();
+        System.out.println("Максимальне значення в масиві:");
         System.out.println(num1.max());
+        System.out.println();
 
 
         // работа со вторым массивом
 
-        for (int i=0;i < num2.getNumbers().length;i++){
+        for (int i=0;i < num2.getSize();i++){
             Double num = random.nextDouble();
             try {
             num2.add(num);}
@@ -42,15 +51,26 @@ public class Main {
                 a.printStackTrace();
                 System.exit(0);
             }
-            System.out.println(num+" записано в массив с индексом "+i);
+            System.out.println(num+" записано в масив з індексом "+i);
         }
-        int x2 = random.nextInt();
-        Double testNum2 = num2.get(x2);
-        System.out.println(testNum2+" хранится в массив с индексом "+x2);
+        System.out.println();
+
+        Double testNum2 = num2.get(6);
+        System.out.println(testNum2+" зберігається в масиві з індексом "+6);
+        System.out.println();
+        System.out.println("Довжина масиву:");
         System.out.println(num2.length());
+        System.out.println();
+        System.out.println("Середенє значення в масиві:");
         System.out.println(num2.average());
+        System.out.println();
+        System.out.println("Сума значень масиву:");
         System.out.println(num2.sum());
+        System.out.println();
+        System.out.println("Максимальне значення в масиві:");
         System.out.println(num2.max());
+        System.out.println();
+
 
 
     }
