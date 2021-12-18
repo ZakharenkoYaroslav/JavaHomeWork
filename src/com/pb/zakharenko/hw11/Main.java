@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.pb.zakharenko.hw3.Array;
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,15 +49,16 @@ public class Main  {
         phone4.addAll(p4);
 
 
-        List<Person> persons = Arrays.asList(
+        List<Person> persons = new ArrayList<>(Arrays.asList(
                 new Person("Orwell D.",phone1,LocalDate.of(1984, 1, 1),LocalDateTime.now()),
                 new Person("Rand A.",phone2,LocalDate.of(1930, 10, 23),LocalDateTime.now()),
                 new Person("Kipling J.R.", phone3, LocalDate.of(1936, 1, 18),LocalDateTime.now()),
                 new Person("Fleming I.", phone4, LocalDate.of(1908, 5, 28),LocalDateTime.now())
-        );
+        ));
 
 
         String personsJson =  mapper.writeValueAsString(persons);
+
         //System.out.println(personsJson);
 
         Path path = Paths.get("phoneBook.json");
@@ -67,7 +72,7 @@ public class Main  {
             System.out.println();
 
             switch (choise) {
-                case "0":
+                case "-1":
                     System.exit(0);
                     break;
                 case "1":
@@ -110,9 +115,11 @@ public class Main  {
                     break;
                 case "2":
                     System.out.println(persons);
-                    System.out.println("Введіть індекс елементу який бажаєте видалити від 0 до останнього");
+
+                    System.out.println("Введіть індекс елементу який бажаєте видалити від 0 до останнього або введіть -1 для виходу");
                     Scanner scan3 = new Scanner(System.in);
                     int index = scan3.nextInt();
+                    if (index == -1) {break;}
                     try {
                         persons.remove(index);
                         System.out.println("Контакт успішно видалено!");}
@@ -128,25 +135,70 @@ public class Main  {
                     System.out.println();
                     Scanner scan4 = new Scanner(System.in);
                     String substring = scan4.next().trim();
-                    Array ar1 = new Array();
-                    System.out.println(persons.toArray()[0]);
-                    //            for (int i=0;i<persons.toArray().length;i++){
+                    ArrayList<Integer> ar1 = new ArrayList<>();
 
-                    //}
+
+                    for (int i=0;i<persons.toArray().length;i++){
+                        String test =persons.get(i).getName();
+                        if (persons.get(i).getName().toLowerCase().contains(substring.toLowerCase())) {
+                            ar1.add(i);
+                        }
+                    }
+                    System.out.println("Ваш рядок був знайдений в наступних записах");
+                    System.out.println();
+                    for (int i=0; i<ar1.size();i++) {
+                        System.out.println("індекс елементу = " +ar1.get(i));
+                        System.out.println(persons.get(ar1.get(i)));
+                    }
+
                     break;
                 case "4":
                     System.out.println();
-                    System.out.println();
+                    System.out.println("За яким критерієм сортувати телефонну книгу?");
+                    System.out.println("1 - за іменем, 2 - за датою народження або вкажіть -1 для виходу");
+                    System.out.println("Зробіть свій вибір!");
+                    Scanner scan5 = new Scanner(System.in);
+                    int typeSort = scan5.nextInt();
+                    if (typeSort == -1) {break;}
+                    if (typeSort == 1) {
+                        persons.sort(Comparator.comparing(p -> p.getName()));
+                        System.out.println("sorted by name persons = " + persons);
+                    }
+                    if (typeSort == 2) {
+                        persons.sort(Comparator.comparing(p -> p.getDateOfBirth()));
+                        System.out.println("sorted by date of birthday persons = " + persons);
+                    }
+
                     break;
                 case "5":
+                    for ( int i=0; i<persons.size();i++){
+                        System.out.println();
+                        System.out.println("Індекс запису = "+i);
+                        System.out.println(persons.get(i));
+                    }
+                    System.out.println("Оберіть індекс елементу для редагування");
+                    System.out.println();
+                    Scanner scan6 = new Scanner(System.in);
+                    index = scan6.nextInt();
+                    System.out.println();
+                    System.out.println(persons.get(index));
+                    System.out.println("Якщо запис обрано вірно, введіть 1 або -1 для виходу");
+                    int choise2 = scan6.nextInt();
+                    if ( choise2 == 1) {
+                        editRecord(index,persons);
+                    };
+                    if (choise2 == -1) {break;}
+
                     break;
                 case "6":
                     saveToFile (path,personsJson);
                     System.out.println("Контакти успішно збережено до файлу!");
                     break;
                 case "7":
-                    String text =readFromFile(path);
+                    List <Person> text =readFromFile(path);
                     System.out.println(text);
+                    //persons = mapper.rea(text);
+                    //System.out.println(persons);
                     System.out.println("Контакти успішно завантажено з файлу!");
 
                     break;
@@ -172,27 +224,67 @@ public class Main  {
     public static String menu () {
         System.out.println();
         System.out.println("Оберіть потрібну дію!");
-        System.out.println("1 - додавання контакту, 2 - видалення контакту, 3 - пошук контакту, 4 - виведення всіх контактів з сортуванням, 5 - редагування контакту, 6 - запис даних в файл, 7 - завантаження даних з файлу, 0 - вихід");
+        System.out.println("1 - додавання контакту, 2 - видалення контакту, 3 - пошук контакту, 4 - виведення всіх контактів з сортуванням, 5 - редагування контакту, 6 - запис даних в файл, 7 - завантаження даних з файлу, -1 - вихід");
         Scanner scan = new Scanner(System.in);
         String choise = scan.next();
         return  choise;
     }
 
-    public static  String readFromFile (Path path) {
-            String result="";
-            try (Scanner scan2 = new Scanner(path)) {
+    public static  List<Person> readFromFile (Path path)  throws Exception {
+        File file = Paths.get("phoneBook.json").toFile();
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-                while (scan2.hasNext()) {
-                String line = scan2.nextLine();
-                //System.out.println(line);
-                result = result + line+"\n";
-                                    }
-            }
-            catch (Exception ex) {
-                System.out.println("Error with file write: " + ex);
-            }
+        List<Person> persons2 = (List<Person>) objectInputStream.readObject();
+
+        System.out.println(persons2);
+
+        return persons2;
+
+    }
+
+    public static void editRecord (int index, List <Person> persons){
         System.out.println();
-        return result;
+        while (true) {
+            System.out.println(persons.get(index));
+            System.out.println("Введіть параметр для редагування або код виходу");
+            System.out.println(" 1 - для редаругвання імені, 2 - для редагування номерів телефонів, 3 - для редагування дати народження, -1 - для виходу до головного меню ");
+            System.out.println("Зробіть свій вибір!");
+            Scanner scan6 = new Scanner(System.in);
+            int typeEdit = scan6.nextInt();
+            if (typeEdit == -1){return;}
+            if (typeEdit == 1){
+                System.out.println(persons.get(index).getName());
+                System.out.println("Введіть нове ім'я");
+                persons.get(index).setName(scan6.nextLine());
+
+                }
+            if (typeEdit == 2){
+                System.out.println(persons.get(index).getPhone());
+                System.out.println("Введіть нові номери телефорнів через кому");
+                System.out.println();
+                List<String> phone = new ArrayList<>();
+                String[] phones = scan6.nextLine().split(",");
+                for (int count = 0; phones.length > count; count++) {
+                    phone.add(phones[count].trim());
+                }
+                persons.get(index).setPhone(phone);
+            }
+            if (typeEdit == 3) {
+                System.out.println(persons.get(index).getPhone());
+                System.out.println();
+                System.out.println("Введіть рік народження");
+                int year = scan6.nextInt();
+                System.out.println();
+                System.out.println("Введіть місяць народження цифрою від 1 до 12");
+                int month = scan6.nextInt();
+                System.out.println();
+                System.out.println("Введіть число народження цифрою від 1 до 31");
+                int day = scan6.nextInt();
+                LocalDate dayOfBirthday =LocalDate.of(year,month,day);
+                persons.get(index).setDateOfBirth(dayOfBirthday);
+            }
+        }
     }
 
 }
