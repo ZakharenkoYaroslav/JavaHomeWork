@@ -1,5 +1,6 @@
 package com.pb.zakharenko.hw11;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -25,7 +26,7 @@ public class Main  {
         ObjectMapper mapper = new ObjectMapper();
         // pretty printing (json с отступами)
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
+        //mapper.enable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
         // для работы с полями типа LocalDate
         SimpleModule module = new SimpleModule();
         module.addSerializer(LocalDate.class, new LocalDateSerializer());
@@ -195,7 +196,7 @@ public class Main  {
                     System.out.println("Контакти успішно збережено до файлу!");
                     break;
                 case "7":
-                    List <Person> text =readFromFile(path);
+                    List <Person> text =readFromFile(path,mapper);
                     System.out.println(text);
                     //persons = mapper.rea(text);
                     //System.out.println(persons);
@@ -230,16 +231,21 @@ public class Main  {
         return  choise;
     }
 
-    public static  List<Person> readFromFile (Path path)  throws Exception {
+    public static  List<Person> readFromFile (Path path, ObjectMapper mapper)  throws Exception {
+
+
+     //   System.out.println(persons2);
         File file = Paths.get("phoneBook.json").toFile();
-        FileInputStream fileInputStream = new FileInputStream(file);
+        System.out.println(file);
+        Person[] persons2 = mapper.readValue(file,Person[].class);
+
+/*        FileInputStream fileInputStream = new FileInputStream(file);
+        System.out.println(fileInputStream);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-
-        List<Person> persons2 = (List<Person>) objectInputStream.readObject();
-
-        System.out.println(persons2);
-
+        System.out.println(objectInputStream);
+        List<Person> persons2 = (List<Person>) objectInputStream.readObject();*/
         return persons2;
+
 
     }
 

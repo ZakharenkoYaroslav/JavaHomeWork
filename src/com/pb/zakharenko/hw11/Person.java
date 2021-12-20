@@ -2,14 +2,14 @@ package com.pb.zakharenko.hw11;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Person {
+public class Person implements Serializable {
     private String name;
     private List<String> phone;
     private LocalDate dateOfBirth;
@@ -20,6 +20,10 @@ public class Person {
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.timestamp = timestamp;
+    }
+
+    public Person() {
+
     }
 
     public String getName() {
