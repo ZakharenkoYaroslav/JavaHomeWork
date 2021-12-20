@@ -239,12 +239,8 @@ public class Main  {
         System.out.println(file);
         Person[] persons2 = mapper.readValue(file,Person[].class);
 
-/*        FileInputStream fileInputStream = new FileInputStream(file);
-        System.out.println(fileInputStream);
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        System.out.println(objectInputStream);
-        List<Person> persons2 = (List<Person>) objectInputStream.readObject();*/
-        return persons2;
+
+        return Arrays.asList(persons2);
 
 
     }
